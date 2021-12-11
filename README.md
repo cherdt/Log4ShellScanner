@@ -1,6 +1,10 @@
 # Log4ShellScanner
 Scans and catches callbacks of systems that are impacted by Log4J Log4Shell vulnerability across specific headers.
 
+## Fork info
+
+I forked this just so I could add looping over a list of destination subnets and destination ports, neither of which takes good advantage of GoLang's abilities.
+
 *Very Beta Warning!* :)
 
 ![Alt text](https://raw.githubusercontent.com/mwarnerblu/Log4ShellScanner/main/extras/log4shellscanner_output.png "Log4Shell Scanner Output")
@@ -12,8 +16,8 @@ If building locally nothing fancy is required, I used go 1.16 but it's a fairly 
 
 `-SourceIP` - Source of the requests and the IP you want to have called back to
 `-SourcePort` - Port you want this script to listen on locally
-`-DestCIDR` - CIDR you want scanned (bigger will take longer)
-`-DestPort` - Port that you want to target for scanning
+`-DestCIDR` - CIDR you want scanned (bigger will take longer), can take a comma-delimited list
+`-DestPort` - Port that you want to target for scanning, can take a comma-delimited list
 
 Otherwise it's a simple run as you can see from the output above:
 
