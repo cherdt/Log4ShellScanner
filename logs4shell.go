@@ -35,7 +35,7 @@ func handleRequest(conn net.Conn) {
 }
 
 func request(destCIDR string, destPort string, sourceIp string, sourcePort string) error {
-	log.Printf("Scanning %v CIDR now!\n---------", destCIDR)
+	log.Printf("Scanning %v CIDR, port %v now!\n---------", destCIDR, destPort)
 	client := &http.Client{
 			Timeout: time.Millisecond * 50,
 	}
